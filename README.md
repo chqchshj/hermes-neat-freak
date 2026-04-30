@@ -80,6 +80,52 @@
 - `website/docs/`
 - skills / memory / docs 之间的漂移
 
+## 安装方式
+
+### 方式一：让支持 Skill 的 Agent 直接安装
+
+在 Claude Code、Codex、OpenCode、OpenClaw、Hermes 这类支持 skills 的 agent 里，直接说：
+
+```text
+帮我安装这个 skill：https://github.com/chqchshj/hermes-neat-freak
+```
+
+如果 agent 支持从仓库根目录直接安装，它会自动读取 `SKILL.md` 和 `references/`。
+
+### 方式二：手动安装到 Hermes
+
+把仓库 clone 到本地后，复制到 Hermes 的技能目录：
+
+```bash
+git clone https://github.com/chqchshj/hermes-neat-freak.git
+mkdir -p ~/.hermes/skills/hermes-agent/
+cp -r hermes-neat-freak ~/.hermes/skills/hermes-agent/
+```
+
+安装后，Hermes 中可按技能名加载：
+
+```text
+/hermes-neat-freak
+```
+
+或者在自然语言里直接触发，例如：
+- `收尾一下`
+- `同步一下文档和记忆`
+- `整理一下`
+- `sync up`
+
+### 方式三：作为外部技能目录挂载
+
+如果你已经有统一的 skills 仓库，也可以把它放进外部技能目录，然后在 `~/.hermes/config.yaml` 里配置：
+
+```yaml
+skills:
+  external_dirs:
+    - /path/to/your/skills-repo
+```
+
+> 注意：对 Hermes 来说，`external_dirs` 更适合作为**只读发现源**。如果后续 agent 要修改/增强技能，建议沉淀到 `~/.hermes/skills/` 本地主目录。
+
 ## 仓库结构
 
 ```text
